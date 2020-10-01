@@ -1,0 +1,60 @@
+﻿@page "/projects/edit/{ProjectId:int}"
+@inject Portfolio.Blazor.DataProvider.ApiService ApiService
+@inject NavigationManager NavManager
+
+<h3>Edit Project</h3>
+
+    <label>Title</label>
+    <br\></br\>
+    <textarea @bind="TitleField"></textarea>
+    <br\></br\>
+
+    <label>@RequirementsField</label>
+    <br\></br\>
+    <textarea @bind="RequirementsField"></textarea>
+    <br\></br\>
+
+    <label>Design</label>
+    <br\></br\>
+    <textarea @bind="DesignField"></textarea>
+    <br\></br\>
+
+    <label>TimeStamp</label>
+    <br\></br\>
+    <textarea @bind="TimeStampField"></textarea>
+    <br\></br\>
+
+    <button @onclick="SaveChanges">Save</button>
+
+
+@code {
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    public Project NewProject { get; set; }
+    public string TitleField { get; set; }
+    public string RequirementsField { get; set; }
+    public string DesignField { get; set; }
+    public string TimeStampField { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        NewProject = await ApiService.GetProjectById(ProjectId);
+
+        TitleField = NewProject.Title;
+        RequirementsField = NewProject.Requirements;
+        TimeStampField = NewProject.TimeStamp;
+        DesignField = NewProject.Design;
+    }
+
+    public async Task SaveChanges()
+    {
+        NewProject.Title = TitleField;
+        NewProject.Requirements = RequirementsField;
+        NewProject.TimeStamp = TimeStampField;
+        NewProject.Design = DesignField;
+
+        await ApiService.Edit(NewProject);
+        NavManager.NavigateTo("/projects");
+    }
+}

@@ -1,0 +1,47 @@
+﻿@page "/projects/{ProjectId:int}"
+@inject Portfolio.Blazor.DataProvider.ApiService ApiService
+@inject NavigationManager NavManager
+
+<h3>ProjectPage</h3>
+
+<label>Title</label>
+<br\></br\>
+<label @bind="TitleField"></label>
+<br />
+
+<label>@RequirementsField</label>
+<br />
+<label @bind="RequirementsField"></label>
+<br\></br\>
+
+<label>Design</label>
+<br\></br\>
+<label @bind="DesignField"></label>
+<br />
+
+<label>TimeStamp</label>
+<br\></br\>
+<label @bind="TimeStampField"></label>
+<br />
+
+@code {
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    public Project NewProject { get; set; }
+    public string TitleField { get; set; }
+    public string RequirementsField { get; set; }
+    public string DesignField { get; set; }
+    public string TimeStampField { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        NewProject = await ApiService.GetProjectById(ProjectId);
+
+        TitleField = NewProject.Title;
+        RequirementsField = NewProject.Requirements;
+        TimeStampField = NewProject.TimeStamp;
+        DesignField = NewProject.Design;
+    }
+
+}

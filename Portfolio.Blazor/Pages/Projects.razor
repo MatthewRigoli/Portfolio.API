@@ -1,0 +1,99 @@
+﻿@page "/projects"
+@inject Portfolio.Blazor.DataProvider.ApiService ApiService
+@inject NavigationManager NavManager
+@using Portfolio.Shared
+
+<h3>Projects</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Requirements</th>
+            <th>Design</th>
+            <th>TimeStamp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var project in ProjectList ?? new Project[] { })
+        {
+        <tr>
+            <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(project.Id)">@project.Title</a></td>
+            <td>@project.Requirements</td>
+            <td>@project.Design</td>
+            <td>@project.TimeStamp</td>
+
+            <td>
+                <button @onclick="() => EditProject(project.Id)">Edit Project</button>
+                <button @onclick="() => DeleteProject(project.Id)">Delete Project</button>
+            </td>
+        </tr>
+
+        }
+    </tbody>
+</table>
+    <label>Title</label>
+    <br\></br\>
+    <textarea @bind="TitleField"></textarea>
+    <br\></br\>
+
+    <label>Requirements</label>
+    <br\></br\>
+    <textarea @bind="RequirementsField"></textarea>
+    <br\></br\>
+
+    <label>Design</label>
+    <br\></br\>
+    <textarea @bind="DesignField"></textarea>
+    <br\></br\>
+
+    <label>TimeStamp</label>
+    <br\></br\>
+    <textarea @bind="TimeStampField"></textarea>
+    <br\></br\>
+    <button @onclick="Add">Add Project</button>
+
+@code {
+    public bool isAddComponentDisplay = false;
+    public IEnumerable<Project> ProjectList { get; set; }
+    public Project NewProject;
+    public string TitleField { get; set; }
+    public string RequirementsField { get; set; }
+    public string DesignField { get; set; }
+    public string TimeStampField { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ProjectList = await ApiService.GetProjectAsync();
+    }
+
+    public void EditProject(int id)
+    {
+        NavManager.NavigateTo("projects/edit/" + id);
+    }
+
+    public async Task DeleteProject(int id)
+    {
+        await ApiService.Delete(id);
+        ProjectList = await ApiService.GetProjectAsync();
+    }
+
+    public async Task Add()
+    {
+        NewProject = new Project();
+        NewProject.Title = TitleField;
+        NewProject.Requirements = RequirementsField;
+        NewProject.TimeStamp = TimeStampField;
+        NewProject.Design = DesignField;
+
+        await ApiService.Post(NewProject);
+        ProjectList = await ApiService.GetProjectAsync();
+    }
+
+    public void NavigateToDetailsPage(int id)
+    {
+        NavManager.NavigateTo("projects/" + id);
+    }
+
+}
