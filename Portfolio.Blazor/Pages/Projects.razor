@@ -9,9 +9,9 @@
     <thead>
         <tr>
             <th>Title</th>
-            <th>Requirements</th>
+            @*<th>Requirements</th>
             <th>Design</th>
-            <th>TimeStamp</th>
+            <th>TimeStamp</th>*@
         </tr>
     </thead>
     <tbody>
@@ -19,9 +19,9 @@
         {
         <tr>
             <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(project.Id)">@project.Title</a></td>
-            <td>@project.Requirements</td>
+            @*<td>@project.Requirements</td>
             <td>@project.Design</td>
-            <td>@project.TimeStamp</td>
+            <td>@project.TimeStamp</td>*@
 
             <td>
                 <button @onclick="() => EditProject(project.Id)">Edit Project</button>
