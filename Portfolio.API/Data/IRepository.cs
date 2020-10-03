@@ -12,5 +12,6 @@ namespace Portfolio.API.Data
         Task SaveProjectAsync(Project project);
         Task EditProjectAsync(Project project);
         Task DeleteProjectAsync(Project project);
+        Task AssignCategoryAsync(AssignRequest assignRequest);
     }
 }

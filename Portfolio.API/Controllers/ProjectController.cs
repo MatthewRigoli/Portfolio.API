@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Portfolio.Shared.ViewModels;
 
 namespace Portfolio.API.Controllers
 {
@@ -21,7 +22,14 @@ namespace Portfolio.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IEnumerable<Project>> Get() => await repository.Projects.ToListAsync();
+        public async Task<List<ProjectViewModel>> Get()
+        {
+            return await repository.Projects
+                .Include(p => p.ProjectLanguages)
+                    .ThenInclude(pc => pc.Language)
+                .Select(p => new ProjectViewModel(p))
+                .ToListAsync();
+        }
 
         [HttpGet("[action]")]
         public async Task DefaultData()
