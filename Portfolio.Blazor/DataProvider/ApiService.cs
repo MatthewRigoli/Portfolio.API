@@ -58,5 +58,11 @@ namespace Portfolio.Blazor.DataProvider
             };
             await client.PostAsJsonAsync("api/project/assign/", assignBody);
         }
+
+        public async Task<IEnumerable<Language>> GetLanguagesAsync()
+        {
+            var languages = await client.GetFromJsonAsync<IEnumerable<Language>>("api/language");
+            return languages;
+        }
     }
 }

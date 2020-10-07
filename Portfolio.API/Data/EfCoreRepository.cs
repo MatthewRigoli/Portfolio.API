@@ -18,17 +18,17 @@ namespace Portfolio.API.Data
 
         public IQueryable<Project> Projects => context.Projects;
 
-        public IQueryable<Language> Languages => throw new NotImplementedException();
+        public IQueryable<Language> Languages => context.Languages;
 
-        public IQueryable<Platform> Platforms => throw new NotImplementedException();
+        public IQueryable<Platform> Platforms => context.Platforms;
 
-        public IQueryable<Technology> Technologies => throw new NotImplementedException();
+        public IQueryable<Technology> Technologies => context.Technologies;
 
-        public IQueryable<ProjectTechnology> ProjectTechnologies => throw new NotImplementedException();
+        public IQueryable<ProjectTechnology> ProjectTechnologies => context.ProjectTechnologies;
 
-        public IQueryable<ProjectLanguage> ProjectLanguages => throw new NotImplementedException();
+        public IQueryable<ProjectLanguage> ProjectLanguages => context.ProjectLanguages;
 
-        public IQueryable<ProjectPlatform> ProjectPlatforms => throw new NotImplementedException();
+        public IQueryable<ProjectPlatform> ProjectPlatforms => context.ProjectPlatforms;
 
         public async Task AssignCategoryAsync(AssignRequest assignRequest)
         {
