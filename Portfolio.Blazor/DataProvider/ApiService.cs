@@ -17,7 +17,7 @@ namespace Portfolio.Blazor.DataProvider
         {
             this.client = client;
         }
-        
+
         public async Task<IEnumerable<Project>> GetProjectAsync()
         {
             var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("api/project");
@@ -46,6 +46,17 @@ namespace Portfolio.Blazor.DataProvider
             var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("api/project");
             var project = projects.Where(proj => proj.Id == id).First();
             return project;
+        }
+
+        public async Task AssignTag(string categoryType, int projectId, string newName)
+        {
+            var assignBody = new AssignRequest
+            {
+                CategoryType = categoryType,
+                Name = newName,
+                ProjectId = projectId
+            };
+            await client.PostAsJsonAsync("api/project/assign/", assignBody);
         }
     }
 }

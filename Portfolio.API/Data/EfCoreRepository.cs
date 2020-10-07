@@ -50,6 +50,41 @@ namespace Portfolio.API.Data
                     context.ProjectLanguages.Add(lc);
                     await context.SaveChangesAsync();
                     break;
+
+                case Project.TechnologyCategory:
+                    var technology = await context.Technologies.FirstOrDefaultAsync(l => l.Name == assignRequest.Name);
+                    if (technology == null)
+                    {
+                        technology = new Technology { Name = assignRequest.Name };
+                        context.Technologies.Add(technology);
+                        await context.SaveChangesAsync();
+                    }
+                    var tc = new ProjectTechnology
+                    {
+                        ProjectId = assignRequest.ProjectId,
+                         TechnologyId= technology.Id
+                    };
+                    context.ProjectTechnologies.Add(tc);
+                    await context.SaveChangesAsync();
+                    break;
+
+                case Project.PlatformCategory:
+                    var platform = await context.Platforms.FirstOrDefaultAsync(l => l.Name == assignRequest.Name);
+                    if (platform == null)
+                    {
+                        platform = new Platform { Name = assignRequest.Name };
+                        context.Platforms.Add(platform);
+                        await context.SaveChangesAsync();
+                    }
+                    var pp = new ProjectPlatform
+                    {
+                        ProjectId = assignRequest.ProjectId,
+                        PlatformId = platform.Id
+                    };
+                    context.ProjectPlatforms.Add(pp);
+                    await context.SaveChangesAsync();
+                    break;
+
                 default:
                     break;
             }

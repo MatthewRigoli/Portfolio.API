@@ -61,5 +61,11 @@ namespace Portfolio.API.Controllers
             var projectToDelete = repository.Projects.Where(project => project.Id == id).FirstOrDefault();
             await repository.DeleteProjectAsync(projectToDelete);
         }
+
+        [HttpPost("[action]")]
+        public async Task Assign(AssignRequest assignRequest)
+        {
+            await repository.AssignCategoryAsync(assignRequest);
+        }
     }
 }

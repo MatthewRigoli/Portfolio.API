@@ -4,31 +4,52 @@
 
 <h3>Edit Project</h3>
 
-    <label>Title</label>
-    <br />
-    <textarea @bind="TitleField"></textarea>
-    <br />
-    <br />
+<label>Title</label>
+<br />
+<textarea @bind="TitleField"></textarea>
+<br />
+<br />
 
-    <label>@RequirementsField</label>
-    <br />
-    <textarea @bind="RequirementsField"></textarea>
-    <br />
-    <br />
+<label>@RequirementsField</label>
+<br />
+<textarea @bind="RequirementsField"></textarea>
+<br />
+<br />
 
-    <label>Design</label>
-    <br />
-    <textarea @bind="DesignField"></textarea>
-    <br />
-    <br />
+<label>Design</label>
+<br />
+<textarea @bind="DesignField"></textarea>
+<br />
+<br />
 
-    <label>TimeStamp</label>
-    <br />
-    <textarea @bind="TimeStampField"></textarea>
-    <br />
-    <br />
+<label>TimeStamp</label>
+<br />
+<textarea @bind="TimeStampField"></textarea>
+<br />
+<br />
 
-    <button @onclick="SaveChanges">Save</button>
+<label>Language</label>
+<br />
+<textarea @bind="NewLanguage"></textarea>
+<br />
+<button @onclick="AddLanguage">Add Language</button>
+<br />
+
+<label>Technologies</label>
+<br />
+<textarea @bind="NewTechnology"></textarea>
+<br />
+<button @onclick="AddLanguage">Add Technology</button>
+<br />
+
+<label>Platforms</label>
+<br />
+<textarea @bind="NewPlatform"></textarea>
+<br />
+<button @onclick="AddLanguage">Add Platform</button>
+<br />
+
+<button @onclick="SaveChanges">Save</button>
 
 
 @code {
@@ -36,6 +57,9 @@
     public int ProjectId { get; set; }
 
     public Project NewProject { get; set; }
+    public string NewLanguage { get; set; }
+    public string NewTechnology { get; set; }
+    public string NewPlatform { get; set; }
     public string TitleField { get; set; }
     public string RequirementsField { get; set; }
     public string DesignField { get; set; }
@@ -60,5 +84,20 @@
 
         await ApiService.Edit(NewProject);
         NavManager.NavigateTo("projects");
+    }
+
+    public async Task AddLanguage()
+    {
+        await ApiService.AssignTag(Project.LanguageCategory, NewProject.Id, NewLanguage);
+    }
+
+    public async Task AddTechnology()
+    {
+        await ApiService.AssignTag(Project.TechnologyCategory, NewProject.Id, NewTechnology);
+    }
+
+    public async Task AddPlatform()
+    {
+        await ApiService.AssignTag(Project.PlatformCategory, NewProject.Id, NewPlatform);
     }
 }
