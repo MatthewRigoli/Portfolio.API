@@ -1,0 +1,16 @@
+﻿@page "/languages/{LanguageId:int}"
+@inject Portfolio.Blazor.DataProvider.ApiService ApiService
+@inject NavigationManager NavManager
+<h3>LanguagesPage</h3>
+
+@code {
+
+    [Parameter]
+    public int LanguageId { get; set; }
+    public Language NewLanguage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        NewLanguage = await ApiService.GetLanguageById(LanguageId);
+    }
+}
