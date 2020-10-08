@@ -70,11 +70,17 @@ namespace Portfolio.Blazor.DataProvider
             var language = languages.Where(lang => lang.Id == id).First();
             return language;
         }
+        public async Task<IEnumerable<Project>> GetProjectsByLanguageId(int id)
+        {
+            var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("api/language/getprojects/"+id);
+            return projects;
+        }
         public async Task<IEnumerable<Technology>> GetTechnologiesAsync()
         {
             var technologies = await client.GetFromJsonAsync<IEnumerable<Technology>>("api/technology");
             return technologies;
         }
+
 
         public async Task<IEnumerable<Platform>> GetPlatformsAsync()
         {

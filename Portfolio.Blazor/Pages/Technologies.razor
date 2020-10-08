@@ -10,10 +10,10 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var technology in technologies)
+        @foreach (Technology t in technologies)
         {
             <tr>
-                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(technology.Id)">@technology.Name</a></td>
+                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(t.Id)">@t.Name</a></td>
             </tr>
 
         }
