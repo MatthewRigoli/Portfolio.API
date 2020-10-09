@@ -26,5 +26,11 @@ namespace Portfolio.API.Controllers
             var technologies = await repository.Technologies.ToListAsync();
             return technologies;
         }
+
+        [HttpGet("getprojects/{id}")]
+        public async Task<IEnumerable<Project>> GetProjectsByTechnologyId(int id)
+        {
+            return await repository.ProjectTechnologies.Where(pl => pl.TechnologyId == id).Select(p => p.Project).ToListAsync();
+        }
     }
 }

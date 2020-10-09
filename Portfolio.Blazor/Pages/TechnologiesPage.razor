@@ -1,5 +1,41 @@
-﻿<h3>TechnologiesPage</h3>
+﻿@page "/technologies/{TechnologyId:int}"
+@inject Portfolio.Blazor.DataProvider.ApiService ApiService
+@inject NavigationManager NavManager
+<h3>NewTechnology.Name</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Project p in ProjectList)
+        {
+            <tr>
+                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(p.Id)">@p.Title</a></td>
+            </tr>
+
+        }
+    </tbody>
+</table>
 
 @code {
+    [Parameter]
+    public int TechnologyId { get; set; }
+
+    public Technology NewTechnology = new Technology();
+    public IEnumerable<Project> ProjectList = new List<Project>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        NewTechnology = await ApiService.GetTechnologyById(TechnologyId);
+        ProjectList = await ApiService.GetProjectsByTechnologyId(TechnologyId);
+    }
+
+    public void NavigateToDetailsPage(int id)
+    {
+        NavManager.NavigateTo("projects/" + id);
+    }
 
 }

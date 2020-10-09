@@ -80,12 +80,36 @@ namespace Portfolio.Blazor.DataProvider
             var technologies = await client.GetFromJsonAsync<IEnumerable<Technology>>("api/technology");
             return technologies;
         }
+        public async Task<Technology> GetTechnologyById(int id)
+        {
+            var technologies = await client.GetFromJsonAsync<IEnumerable<Technology>>("api/technology");
+            var technology = technologies.Where(tech => tech.Id == id).First();
+            return technology;
+        }
+
+        public async Task<IEnumerable<Project>> GetProjectsByTechnologyId(int id)
+        {
+            var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("api/technology/getprojects/" + id);
+            return projects;
+        }
 
 
         public async Task<IEnumerable<Platform>> GetPlatformsAsync()
         {
             var platforms = await client.GetFromJsonAsync<IEnumerable<Platform>>("api/platform");
             return platforms;
+        }
+        public async Task<Platform> GetPlatformById(int id)
+        {
+            var platforms = await client.GetFromJsonAsync<IEnumerable<Platform>>("api/platform");
+            var platform = platforms.Where(plat => plat.Id == id).First();
+            return platform;
+        }
+
+        public async Task<IEnumerable<Project>> GetProjectsByPlatformId(int id)
+        {
+            var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("api/platform/getprojects/" + id);
+            return projects;
         }
     }
 }

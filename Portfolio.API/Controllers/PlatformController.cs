@@ -27,6 +27,12 @@ namespace Portfolio.API.Controllers
             var platforms = await repository.Platforms.ToListAsync();
             return platforms;
         }
+
+        [HttpGet("getprojects/{id}")]
+        public async Task<IEnumerable<Project>> GetProjectsByPlatformId(int id)
+        {
+            return await repository.ProjectPlatforms.Where(pl => pl.PlatformId == id).Select(p => p.Project).ToListAsync();
+        }
     }
 
 }
