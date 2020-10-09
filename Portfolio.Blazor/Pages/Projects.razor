@@ -15,17 +15,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var project in ProjectList ?? new Project[] { })
+        @foreach(Project p in ProjectList ?? new Project[] { })
         {
         <tr>
-            <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(project.Id)">@project.Title</a></td>
+            <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(p.Slug)">@p.Title</a></td>
             @*<td>@project.Requirements</td>
             <td>@project.Design</td>
             <td>@project.TimeStamp</td>*@
 
             <td>
-                <button @onclick="() => EditProject(project.Id)">Edit Project</button>
-                <button @onclick="() => DeleteProject(project.Id)">Delete Project</button>
+                <button @onclick="() => EditProject(p.Slug)">Edit Project</button>
+                <button @onclick="() => DeleteProject(p.Id)">Delete Project</button>
             </td>
         </tr>
 
@@ -71,9 +71,9 @@
         ProjectList = await ApiService.GetProjectAsync();
     }
 
-    public void EditProject(int id)
+    public void EditProject(string slug)
     {
-        NavManager.NavigateTo("projects/edit/" + id);
+        NavManager.NavigateTo("projects/edit/" + slug);
     }
 
     public async Task DeleteProject(int id)
@@ -94,9 +94,9 @@
         ProjectList = await ApiService.GetProjectAsync();
     }
 
-    public void NavigateToDetailsPage(int id)
+    public void NavigateToDetailsPage(string slug)
     {
-        NavManager.NavigateTo("projects/" + id);
+        NavManager.NavigateTo("projects/" + slug);
     }
 
 }

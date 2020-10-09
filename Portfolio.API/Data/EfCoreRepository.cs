@@ -111,7 +111,7 @@ namespace Portfolio.API.Data
             else
             {
                 project.Slug = project.Title.ToSlug();
-                context.Projects.Add(project);
+                context.Projects.Update(project);
             }
             await context.SaveChangesAsync();
         }

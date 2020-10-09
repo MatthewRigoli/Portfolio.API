@@ -13,7 +13,7 @@
         @foreach (var platform in platforms)
         {
             <tr>
-                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(platform.Id)">@platform.Name</a></td>
+                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(platform.Slug)">@platform.Name</a></td>
             </tr>
 
         }
@@ -29,9 +29,9 @@
 
     }
 
-    public void NavigateToDetailsPage(int id)
+    public void NavigateToDetailsPage(string slug)
     {
-        NavManager.NavigateTo("platforms/" + id);
+        NavManager.NavigateTo("platforms/" + slug);
     }
 
 }

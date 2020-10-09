@@ -12,7 +12,7 @@
         @foreach (var language in languages)
         {
             <tr>
-                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(language.Id)">@language.Name</a></td>
+                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(language.Slug)">@language.Name</a></td>
             </tr>
 
         }
@@ -29,9 +29,9 @@
 
     }
 
-    public void NavigateToDetailsPage(int id)
+    public void NavigateToDetailsPage(string slug)
     {
-        NavManager.NavigateTo("languages/" + id);
+        NavManager.NavigateTo("languages/" + slug);
     }
 
 }

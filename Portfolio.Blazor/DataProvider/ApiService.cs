@@ -47,6 +47,12 @@ namespace Portfolio.Blazor.DataProvider
             var project = projects.Where(proj => proj.Id == id).First();
             return project;
         }
+        public async Task<Project> GetProjectBySlug(string slug)
+        {
+            var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("api/project");
+            var project = projects.Where(proj => proj.Slug == slug).First();
+            return project;
+        }
 
         public async Task AssignTag(string categoryType, int projectId, string newName)
         {
@@ -70,6 +76,12 @@ namespace Portfolio.Blazor.DataProvider
             var language = languages.Where(lang => lang.Id == id).First();
             return language;
         }
+        public async Task<Language> GetLanguageBySlug(string slug)
+        {
+            var languages = await client.GetFromJsonAsync<IEnumerable<Language>>("api/language");
+            var language = languages.Where(proj => proj.Slug == slug).First();
+            return language;
+        }
         public async Task<IEnumerable<Project>> GetProjectsByLanguageId(int id)
         {
             var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("api/language/getprojects/"+id);
@@ -86,7 +98,12 @@ namespace Portfolio.Blazor.DataProvider
             var technology = technologies.Where(tech => tech.Id == id).First();
             return technology;
         }
-
+        public async Task<Technology> GetTechnologyBySlug(string slug)
+        {
+            var technologies = await client.GetFromJsonAsync<IEnumerable<Technology>>("api/project");
+            var technology = technologies.Where(proj => proj.Slug == slug).First();
+            return technology;
+        }
         public async Task<IEnumerable<Project>> GetProjectsByTechnologyId(int id)
         {
             var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("api/technology/getprojects/" + id);
@@ -105,7 +122,12 @@ namespace Portfolio.Blazor.DataProvider
             var platform = platforms.Where(plat => plat.Id == id).First();
             return platform;
         }
-
+        public async Task<Platform> GetPlatformBySlug(string slug)
+        {
+            var platforms = await client.GetFromJsonAsync<IEnumerable<Platform>>("api/project");
+            var platform = platforms.Where(proj => proj.Slug == slug).First();
+            return platform;
+        }
         public async Task<IEnumerable<Project>> GetProjectsByPlatformId(int id)
         {
             var projects = await client.GetFromJsonAsync<IEnumerable<Project>>("api/platform/getprojects/" + id);
