@@ -29,5 +29,6 @@ namespace Portfolio.Shared
         public string TimeStamp { get; set; }
 
         public List<ProjectLanguage> ProjectLanguages { get; set; }
+        public string Slug { get; set; }
     }
 }

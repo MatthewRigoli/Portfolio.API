@@ -62,7 +62,7 @@ namespace Portfolio.API.Data
                     var tc = new ProjectTechnology
                     {
                         ProjectId = assignRequest.ProjectId,
-                         TechnologyId= technology.Id
+                        TechnologyId = technology.Id
                     };
                     context.ProjectTechnologies.Add(tc);
                     await context.SaveChangesAsync();
@@ -89,7 +89,6 @@ namespace Portfolio.API.Data
                     break;
             }
         }
-
         public async Task DeleteProjectAsync(Project project)
         {
             context.Projects.Remove(project);
@@ -104,7 +103,16 @@ namespace Portfolio.API.Data
 
         public async Task SaveProjectAsync(Project project)
         {
-            context.Projects.Add(project);
+            if(project.Slug == null)
+            {
+                project.Slug = project.Title.ToSlug();
+                context.Projects.Add(project);
+            }
+            else
+            {
+                project.Slug = project.Title.ToSlug();
+                context.Projects.Add(project);
+            }
             await context.SaveChangesAsync();
         }
     }

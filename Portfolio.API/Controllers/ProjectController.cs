@@ -31,6 +31,23 @@ namespace Portfolio.API.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("{slug}")]
+        public async Task<ProjectViewModel> GetProject(string slug)
+        {
+            try
+            {
+                var project = await repository.Projects
+                   .Include(p => p.ProjectLanguages)
+                       .ThenInclude(pc => pc.Language)
+                    .FirstOrDefaultAsync(p => p.Slug == slug);
+                return new ProjectViewModel(project);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpGet("[action]")]
         public async Task DefaultData()
         {
