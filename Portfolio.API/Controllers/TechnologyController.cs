@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.API.Data;
 using Portfolio.Shared;
+using Portfolio.Shared.ViewModels;
 
 namespace Portfolio.API.Controllers
 {
@@ -25,6 +26,23 @@ namespace Portfolio.API.Controllers
         {
             var technologies = await repository.Technologies.ToListAsync();
             return technologies;
+        }
+
+        [HttpGet("{slug}")]
+        public async Task<TechnologyViewModel> GetTechnology(string slug)
+        {
+            try
+            {
+                var technology = await repository.Technologies
+                   .Include(p => p.ProjectTechnologies)
+                       .ThenInclude(pc => pc.Project)
+                    .FirstOrDefaultAsync(p => p.Slug == slug);
+                return new TechnologyViewModel(technology);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         [HttpGet("getprojects/{id}")]

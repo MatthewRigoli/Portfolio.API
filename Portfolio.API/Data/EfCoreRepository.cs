@@ -39,8 +39,7 @@ namespace Portfolio.API.Data
                     if (language == null)
                     {
                         language = new Language { Name = assignRequest.Name };
-                        context.Languages.Add(language);
-                        await context.SaveChangesAsync();
+                        await SaveLanguageAsync(language);
                     }
                     var lc = new ProjectLanguage
                     {
@@ -56,8 +55,7 @@ namespace Portfolio.API.Data
                     if (technology == null)
                     {
                         technology = new Technology { Name = assignRequest.Name };
-                        context.Technologies.Add(technology);
-                        await context.SaveChangesAsync();
+                        await SaveTechnologyAsync(technology);
                     }
                     var tc = new ProjectTechnology
                     {
@@ -73,8 +71,7 @@ namespace Portfolio.API.Data
                     if (platform == null)
                     {
                         platform = new Platform { Name = assignRequest.Name };
-                        context.Platforms.Add(platform);
-                        await context.SaveChangesAsync();
+                        await SavePlatformAsync(platform);
                     }
                     var pp = new ProjectPlatform
                     {
@@ -112,6 +109,51 @@ namespace Portfolio.API.Data
             {
                 project.Slug = project.Title.ToSlug();
                 context.Projects.Update(project);
+            }
+            await context.SaveChangesAsync();
+        }
+
+        public async Task SaveLanguageAsync(Language language)
+        {
+            if (language.Slug == null)
+            {
+                language.Slug = language.Name.ToSlug();
+                context.Languages.Add(language);
+            }
+            else
+            {
+                language.Slug = language.Name.ToSlug();
+                context.Languages.Update(language);
+            }
+            await context.SaveChangesAsync();
+        }
+
+        public async Task SaveTechnologyAsync(Technology technology)
+        {
+            if (technology.Slug == null)
+            {
+                technology.Slug = technology.Name.ToSlug();
+                context.Technologies.Add(technology);
+            }
+            else
+            {
+                technology.Slug = technology.Name.ToSlug();
+                context.Technologies.Update(technology);
+            }
+            await context.SaveChangesAsync();
+        }
+
+        public async Task SavePlatformAsync(Platform platform)
+        {
+            if (platform.Slug == null)
+            {
+                platform.Slug = platform.Name.ToSlug();
+                context.Platforms.Add(platform);
+            }
+            else
+            {
+                platform.Slug = platform.Name.ToSlug();
+                context.Platforms.Update(platform);
             }
             await context.SaveChangesAsync();
         }

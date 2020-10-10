@@ -17,6 +17,9 @@ namespace Portfolio.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Project>().HasIndex(u => u.Slug).IsUnique();
+            modelBuilder.Entity<Language>().HasIndex(u => u.Slug).IsUnique();
+            modelBuilder.Entity<Platform>().HasIndex(u => u.Slug).IsUnique();
+            modelBuilder.Entity<Technology>().HasIndex(u => u.Slug).IsUnique();
         }
 
         public DbSet<Project> Projects { get; set; }
