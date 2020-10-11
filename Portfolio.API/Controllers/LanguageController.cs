@@ -33,7 +33,7 @@ namespace Portfolio.API.Controllers
                     .FirstOrDefaultAsync(p => p.Slug == slug);
                 return new LanguageViewModel(language);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

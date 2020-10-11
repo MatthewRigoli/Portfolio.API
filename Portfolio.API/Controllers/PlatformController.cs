@@ -40,7 +40,7 @@ namespace Portfolio.API.Controllers
                     .FirstOrDefaultAsync(p => p.Slug == slug);
                 return new PlatformViewModel(platform);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

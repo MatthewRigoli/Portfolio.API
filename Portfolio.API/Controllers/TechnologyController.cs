@@ -39,7 +39,7 @@ namespace Portfolio.API.Controllers
                     .FirstOrDefaultAsync(p => p.Slug == slug);
                 return new TechnologyViewModel(technology);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

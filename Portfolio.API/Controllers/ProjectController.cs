@@ -42,7 +42,7 @@ namespace Portfolio.API.Controllers
                     .FirstOrDefaultAsync(p => p.Slug == slug);
                 return new ProjectViewModel(project);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
