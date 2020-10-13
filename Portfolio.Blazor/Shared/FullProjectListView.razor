@@ -1,0 +1,59 @@
+﻿@inject Portfolio.Blazor.DataProvider.ApiService ApiService
+@inject NavigationManager NavManager
+@using Portfolio.Shared
+<h3>Project List</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            @*<th>Requirements</th>
+                <th>Design</th>
+                <th>TimeStamp</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Project p in ProjectList ?? new Project[] { })
+        {
+            <tr>
+                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(p.Slug)">@p.Title</a></td>
+                @*<td>@project.Requirements</td>
+                    <td>@project.Design</td>
+                    <td>@project.TimeStamp</td>*@
+
+                <td>
+                    <button @onclick="() => EditProject(p.Slug)">Edit Project</button>
+                    <button @onclick="() => DeleteProject(p.Id)">Delete Project</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+
+    public bool isAddComponentDisplay = false;
+    public IEnumerable<Project> ProjectList { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ProjectList = await ApiService.GetProjectAsync();
+    }
+
+    public void EditProject(string slug)
+    {
+        NavManager.NavigateTo("projects/edit/" + slug);
+    }
+
+    public async Task DeleteProject(int id)
+    {
+        await ApiService.Delete(id);
+        ProjectList = await ApiService.GetProjectAsync();
+    }
+
+    public void NavigateToDetailsPage(string slug)
+    {
+        NavManager.NavigateTo("projects/" + slug);
+    }
+}
