@@ -1,0 +1,27 @@
+﻿body {
+}
+
+.Button-Primary {
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    padding: 4px 8px 4px 8px;
+}
+.Button-Primary:active {
+    background-color:darkslategrey;
+}
+
+.Resume-TopLevel {
+    border: solid;
+    border-width: 2px 2px 2px 2px;
+}
+
+.Heading-TopLevel {
+    text-align:center;
+}
+
+.Heading-SubjectLevel{
+    text-align:center;
+    background-color: lightgray;
+    padding: 4px 6px 4px 6px;
+}
