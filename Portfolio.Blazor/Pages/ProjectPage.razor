@@ -2,50 +2,9 @@
 @inject Portfolio.Blazor.DataProvider.ApiService ApiService
 @inject NavigationManager NavManager
 
-<h3>ProjectPage</h3>
-
-<label>Title</label>
-<br />
-<label>@TitleField</label>
-<br />
-<br />
-
-<label>Requirements</label>
-<br />
-<MarkdownView Content="@NewProject.Requirements" />
-<br />
-<br />
-
-<label>Design</label>
-<br />
-<label>@DesignField</label>
-<br />
-<br />
-
-<label>TimeStamp</label>
-<br />
-<label>@TimeStampField</label>
-<br />
-<br />
+<ProjectDetailsProjectDisplayView ProjectSlug="@ProjectSlug"/>
 
 @code {
     [Parameter]
     public string ProjectSlug { get; set; }
-
-    public Project NewProject = new Project();
-    public string TitleField { get; set; }
-    public string RequirementsField { get; set; }
-    public string DesignField { get; set; }
-    public string TimeStampField { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        NewProject = await ApiService.GetProjectBySlug(ProjectSlug);
-
-        TitleField = NewProject.Title;
-        RequirementsField = NewProject.Requirements;
-        TimeStampField = NewProject.TimeStamp;
-        DesignField = NewProject.Design;
-    }
-
 }

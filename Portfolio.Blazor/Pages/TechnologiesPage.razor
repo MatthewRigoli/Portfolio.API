@@ -1,41 +1,8 @@
 ﻿@page "/technologies/{TechnologySlug}"
-@inject Portfolio.Blazor.DataProvider.ApiService ApiService
-@inject NavigationManager NavManager
-<h3>@NewTechnology.Name</h3>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Project p in ProjectList)
-        {
-            <tr>
-                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(p.Slug)">@p.Title</a></td>
-            </tr>
-
-        }
-    </tbody>
-</table>
+<TechnologyDetailsProjectDisplayView TechnologySlug="@TechnologySlug"/>
 
 @code {
     [Parameter]
     public string TechnologySlug { get; set; }
-
-    public Technology NewTechnology = new Technology();
-    public IEnumerable<Project> ProjectList = new List<Project>();
-
-    protected override async Task OnInitializedAsync()
-    {
-        NewTechnology = await ApiService.GetTechnologyBySlug(TechnologySlug);
-        ProjectList = await ApiService.GetProjectsByTechnologyId(NewTechnology.Id);
-    }
-
-    public void NavigateToDetailsPage(string slug)
-    {
-        NavManager.NavigateTo("projects/" + slug);
-    }
-
 }

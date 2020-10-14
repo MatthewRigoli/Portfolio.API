@@ -1,41 +1,9 @@
 ﻿@page "/languages/{LanguageSlug}"
-@inject Portfolio.Blazor.DataProvider.ApiService ApiService
-@inject NavigationManager NavManager
-<h3>@NewLanguage.Name</h3>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Project p in ProjectList)
-        {
-            <tr>
-                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(p.Slug)">@p.Title</a></td>
-            </tr>
-
-        }
-    </tbody>
-</table>
+<LanguageDetailsPageProjectView LanguageSlug="@LanguageSlug"/>
 
 @code {
 
     [Parameter]
     public string LanguageSlug { get; set; }
-
-    public Language NewLanguage = new Language();
-    public IEnumerable<Project> ProjectList = new List<Project>();
-
-    protected override async Task OnInitializedAsync()
-    {
-        NewLanguage = await ApiService.GetLanguageBySlug(LanguageSlug);
-        ProjectList = await ApiService.GetProjectsByLanguageId(NewLanguage.Id);
-    }
-
-    public void NavigateToDetailsPage(string slug)
-    {
-        NavManager.NavigateTo("projects/" + slug);
-    }
 }

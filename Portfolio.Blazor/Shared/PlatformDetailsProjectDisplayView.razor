@@ -1,0 +1,39 @@
+﻿@inject Portfolio.Blazor.DataProvider.ApiService ApiService
+@inject NavigationManager NavManager
+<h3>@NewPlatform.Name</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Project p in ProjectList)
+        {
+            <tr>
+                <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(p.Slug)">@p.Title</a></td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public string PlatformSlug { get; set; }
+
+    public Platform NewPlatform = new Platform();
+    public IEnumerable<Project> ProjectList = new List<Project>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        NewPlatform = await ApiService.GetPlatformBySlug(PlatformSlug);
+        ProjectList = await ApiService.GetProjectsByPlatformId(NewPlatform.Id);
+    }
+
+    public void NavigateToDetailsPage(string slug)
+    {
+        NavManager.NavigateTo("projects/" + slug);
+    }
+}

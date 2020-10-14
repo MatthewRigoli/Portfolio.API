@@ -7,9 +7,6 @@
     <thead>
         <tr>
             <th>Title</th>
-            @*<th>Requirements</th>
-                <th>Design</th>
-                <th>TimeStamp</th>*@
         </tr>
     </thead>
     <tbody>
@@ -17,13 +14,10 @@
         {
             <tr>
                 <td><a class="text-primary" @onclick="() => NavigateToDetailsPage(p.Slug)">@p.Title</a></td>
-                @*<td>@project.Requirements</td>
-                    <td>@project.Design</td>
-                    <td>@project.TimeStamp</td>*@
 
                 <td>
-                    <button @onclick="() => EditProject(p.Slug)">Edit Project</button>
-                    <button @onclick="() => DeleteProject(p.Id)">Delete Project</button>
+                    <button class="Button-Primary" @onclick="() => EditProject(p.Slug)">Edit Project</button>
+                    <button class="Button-Primary" @onclick="() => DeleteProject(p.Id)">Delete Project</button>
                 </td>
             </tr>
         }
