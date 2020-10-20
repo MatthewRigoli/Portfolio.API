@@ -26,6 +26,6 @@
     padding: 4px 6px 4px 6px;
 }
 
-.textbox{
-    
+.nav flex-column {
+    background-color: darkgray;
 }
