@@ -12,13 +12,13 @@
 
 <label>@RequirementsField</label>
 <br />
-<textarea @bind="RequirementsField"></textarea>
+<textarea rows="4" @bind="RequirementsField"></textarea>
 <br />
 <br />
 
 <label>Design</label>
 <br />
-<textarea @bind="DesignField"></textarea>
+<textarea rows="4" @bind="DesignField"></textarea>
 <br />
 <br />
 
@@ -30,26 +30,26 @@
 
 <label>Language</label>
 <br />
-<textarea @bind="NewLanguage"></textarea>
+<textarea  @bind="NewLanguage"></textarea>
 <br />
-<button @onclick="AddLanguage">Add Language</button>
+<button class="Button-Primary" @onclick="AddLanguage">Add Language</button>
 <br />
 
 <label>Technologies</label>
 <br />
 <textarea @bind="NewTechnology"></textarea>
 <br />
-<button @onclick="AddTechnology">Add Technology</button>
+<button class="Button-Primary" @onclick="AddTechnology">Add Technology</button>
 <br />
 
 <label>Platforms</label>
 <br />
 <textarea @bind="NewPlatform"></textarea>
 <br />
-<button @onclick="AddPlatform">Add Platform</button>
+<button class="Button-Primary" @onclick="AddPlatform">Add Platform</button>
 <br />
 
-<button @onclick="SaveChanges">Save</button>
+<button class="Button-Primary" @onclick="SaveChanges">Save</button>
 
 
 @code {
