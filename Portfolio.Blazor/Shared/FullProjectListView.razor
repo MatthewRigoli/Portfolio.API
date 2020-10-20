@@ -1,6 +1,7 @@
 ﻿@inject Portfolio.Blazor.DataProvider.ApiService ApiService
 @inject NavigationManager NavManager
 @using Portfolio.Shared
+@using Polly 
 <h3>Project List</h3>
 
 <table class="table">
@@ -32,7 +33,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ProjectList = await ApiService.GetProjectAsync();
+        await Polly.Policy
+            .Handle<TimeoutException>()
+            .WaitAndRetryForever(retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
+            .Execute(async () =>
+            {
+                System.Diagnostics.Debug.WriteLine("Trying to make the call again...");
+                ProjectList = await ApiService.GetProjectAsync();
+            });
     }
 
     public void EditProject(string slug)
