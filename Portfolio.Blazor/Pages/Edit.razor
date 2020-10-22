@@ -1,6 +1,11 @@
 ﻿@page "/projects/edit/{ProjectSlug}"
+
+@using System.Net.Http.Headers
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
 @inject Portfolio.Blazor.DataProvider.ApiService ApiService
 @inject NavigationManager NavManager
+@inject IAccessTokenProvider TokenProvider
 @attribute [Authorize]
 
 <h3>Edit Project</h3>

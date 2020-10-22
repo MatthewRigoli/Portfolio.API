@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Portfolio.Shared.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Portfolio.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProjectController : ControllerBase
     {
         private readonly IRepository repository;
