@@ -1,6 +1,7 @@
 ﻿@page "/projects/edit/{ProjectSlug}"
 @inject Portfolio.Blazor.DataProvider.ApiService ApiService
 @inject NavigationManager NavManager
+@attribute [Authorize]
 
 <h3>Edit Project</h3>
 
@@ -30,7 +31,7 @@
 
 <label>Language</label>
 <br />
-<textarea  @bind="NewLanguage"></textarea>
+<textarea @bind="NewLanguage"></textarea>
 <br />
 <button class="Button-Primary" @onclick="AddLanguage">Add Language</button>
 <br />
